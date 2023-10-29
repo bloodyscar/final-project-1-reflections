@@ -50,9 +50,9 @@ class UserController {
                 email: user.email,
             })
             // token header
-            // res.header('Authorization', 'Bearer ' + token);
+            res.header('Authorization', 'Bearer ' + token);
             // token di cookies
-            res.cookie('Authorization', 'Bearer '+ token);
+            // res.cookie('Authorization', 'Bearer '+ token);
             return res.status(200).json({
                 access_token: token
             });
