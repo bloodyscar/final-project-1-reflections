@@ -1,9 +1,10 @@
 {
-  "name": "pug",
-  "version": "0.0.0",
+  "name": "reflectionapi",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
+    "start1": "node ./bin/www",
     "dev": "node --watch ./bin/www"
   },
   "dependencies": {

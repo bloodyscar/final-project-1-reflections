@@ -22,7 +22,7 @@ class UserController {
                 return res.status(400).json({ message: "Email already used!" });
             }
 
-            return res.status(500).json('Internal server error');
+            return res.status(500).json({error: 'Internal server error'});
         }
     }
 
@@ -50,17 +50,17 @@ class UserController {
                 email: user.email,
             })
             // token header
-            res.header('Authorization', 'Bearer ' + token);
+            // res.header('Authorization', 'Bearer ' + token);
             // token di cookies
-            // res.cookie('Authorization', 'Bearer '+ token);
+            res.cookie('Authorization', 'Bearer '+ token);
             return res.status(200).json({
                 access_token: token
             });
 
 
         } catch (error) {
-            console.log(error);
-            return res.status(500).json("Internal Server error");
+            console.log(error.message);
+            return res.status(500).json({error: "Internal Server error"});
         }
     }
 }

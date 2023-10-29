@@ -5,13 +5,11 @@ async function auth(req, res, next) {
         // token di header
         // const token = req.headers.authorization;
         // token di cookies
-        const token = req.cookies.Authorization.slice(7);
-
-
+        const token = req.cookies.Authorization;
         if (!token) {
             return res.status(401).json({ message: "Unauthorized" });
         }
-        const user = veriifyToken(token);
+        const user = veriifyToken(token.slice(7));
         req.user = user;
         next();
     } catch (error) {
