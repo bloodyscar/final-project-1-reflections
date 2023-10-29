@@ -2,16 +2,20 @@ const { veriifyToken } = require("../utils");
 
 async function auth(req, res, next) {
     try {
+        // ambil data token
         // token di header
         // const token = req.headers.authorization;
         // token di cookies
         const token = req.cookies.Authorization.slice(7);
         
-
+        // cek apakah token ada atau tidak
         if (!token) {
             return res.status(401).json({message: "Unauthorized"});
         }
+        // jiika ada lakukan verifikasi token
         const user = veriifyToken(token);
+
+        // masukkan data user kedalam req user yang mana nantika akan di tanggkap function selanjutnya
         req.user = user;
         next();
     } catch (error) {
