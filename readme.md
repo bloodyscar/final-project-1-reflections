@@ -248,3 +248,8 @@ db_name : project1
       "message": "Unauthorized"
     }
     ```
+
+
+    Note : 
+    - riset auto increment pgadmin4 : ALTER TABle "Users" ALTER COLUMN id RESTART WITH 1;
+    - hapus data di table users yang berelasi dengan table lain: TRUNCATE "Users" CASCADE;
