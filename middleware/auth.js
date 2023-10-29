@@ -6,10 +6,10 @@ async function auth(req, res, next) {
         // const token = req.headers.authorization;
         // token di cookies
         const token = req.cookies.Authorization.slice(7);
-        
+
 
         if (!token) {
-            return res.status(401).json({message: "Unauthorized"});
+            return res.status(401).json({ message: "Unauthorized" });
         }
         const user = veriifyToken(token);
         req.user = user;

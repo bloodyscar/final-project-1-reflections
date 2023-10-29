@@ -26,7 +26,7 @@ class UserController {
         }
     }
 
-    static async login(req, res){
+    static async login(req, res) {
         try {
             let { email, password } = req.body;
             if (!email || !password) {
@@ -35,13 +35,13 @@ class UserController {
             const text = 'select * from "Users" where email = $1';
             const values = [email];
             const data = await db.query(text, values);
-            
+
             if (data.rows.length == 0) {
-                return res.status(400).json({message: "Email or password invalid!"});
+                return res.status(400).json({ message: "Email or password invalid!" });
             }
             const isValid = comparePassword(password, data.rows[0].password)
             if (!isValid) {
-                return res.status(400).json({message: "Email or password invalid!!"});
+                return res.status(400).json({ message: "Email or password invalid!!" });
             }
 
             const user = data.rows[0]
@@ -50,9 +50,9 @@ class UserController {
                 email: user.email,
             })
             // token header
-            // res.header('Authorization', 'Bearer '+ token);\
+            res.header('Authorization', 'Bearer ' + token);
             // token di cookies
-            res.cookie('Authorization', 'Bearer '+ token);
+            // res.cookie('Authorization', 'Bearer '+ token);
             return res.status(200).json({
                 access_token: token
             });
