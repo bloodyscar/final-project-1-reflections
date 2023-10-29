@@ -1,11 +1,12 @@
 {
-  "name": "pug",
-  "version": "0.0.0",
+  "name": "reflectionapi",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
     "dev": "node --watch ./bin/www"
   },
+  "type": "commonjs",
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
