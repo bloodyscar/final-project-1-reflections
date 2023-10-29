@@ -2,9 +2,12 @@ const { veriifyToken } = require("../utils");
 
 async function auth(req, res, next) {
     try {
-
-        const token = req.headers.authorization;
+        // token di header
+        // const token = req.headers.authorization;
+        // token di cookies
+        const token = req.cookies.Authorization.slice(7);
         
+
         if (!token) {
             return res.status(401).json({message: "Unauthorized"});
         }
