@@ -1,5 +1,5 @@
 const db = require('../db/connection');
-const { hashPassword } = require('../utils');
+const { hashPassword, comparePassword, generateToken } = require('../utils');
 
 class UserController {
     static async register(req, res) {
@@ -23,6 +23,42 @@ class UserController {
             }
 
             return res.status(500).json('Internal server error');
+        }
+    }
+
+    static async login(req, res){
+        try {
+            let { email, password } = req.body;
+            if (!email || !password) {
+                return res.status(400).json({ message: "Email atau password tidak boleh kososng" });
+            }
+            const text = 'select * from "Users" where email = $1';
+            const values = [email];
+            const data = await db.query(text, values);
+            
+            if (data.rows.length == 0) {
+                return res.status(400).json({message: "Email or password invalid!"});
+            }
+            const isValid = comparePassword(password, data.rows[0].password)
+            if (!isValid) {
+                return res.status(400).json({message: "Email or password invalid!!"});
+            }
+
+            const user = data.rows[0]
+            const token = generateToken({
+                id: user.id,
+                email: user.email,
+            })
+
+            res.header('Authorization', 'Bearer '+ token);
+            return res.status(200).json({
+                access_token: token
+            });
+
+
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json("Internal Server error");
         }
     }
 }
