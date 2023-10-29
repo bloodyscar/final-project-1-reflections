@@ -1,6 +1,6 @@
 const pg = require("pg");
 
-const connectionString = 'postgresql://aufal:123456@localhost:5432/project1';
+const connectionString = 'postgresql://postgres:123456@localhost:5432/project1';
 
 const pool = new pg.Pool({
     connectionString,
