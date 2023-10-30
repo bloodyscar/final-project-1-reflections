@@ -2,6 +2,7 @@ const { veriifyToken } = require("../utils");
 
 async function auth(req, res, next) {
     try {
+        // ambil data token
         // token di header
         const token = req.headers.authorization;
         // token di cookies
@@ -11,6 +12,8 @@ async function auth(req, res, next) {
         }
         // const user = veriifyToken(token.slice(7));
         const user = veriifyToken(token);
+
+        // masukkan data user kedalam req user yang mana nantika akan di tanggkap function selanjutnya
         req.user = user;
         next();
     } catch (error) {
