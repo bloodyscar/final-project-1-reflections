@@ -4,15 +4,13 @@ async function auth(req, res, next) {
     try {
         // ambil data token
         // token di header
-        // const token = req.headers.authorization;
+        const token = req.headers.authorization;
         // token di cookies
-        const token = req.cookies.Authorization.slice(7);
-        
-        // cek apakah token ada atau tidak
+        // const token = req.cookies.Authorization;
         if (!token) {
-            return res.status(401).json({message: "Unauthorized"});
+            return res.status(401).json({ message: "Unauthorized" });
         }
-        // jiika ada lakukan verifikasi token
+        // const user = veriifyToken(token.slice(7));
         const user = veriifyToken(token);
 
         // masukkan data user kedalam req user yang mana nantika akan di tanggkap function selanjutnya

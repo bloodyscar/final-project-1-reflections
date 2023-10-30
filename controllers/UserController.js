@@ -40,11 +40,11 @@ class UserController {
                 return res.status(400).json({ message: "Email already used!" });
             }
 
-            return res.status(500).json('Internal server error');
+            return res.status(500).json({error: 'Internal server error'});
         }
     }
 
-    static async login(req, res){
+    static async login(req, res) {
         try {
              /**
              * mengabil data email dan password yang user inputkan
@@ -64,15 +64,14 @@ class UserController {
             const text = 'select * from "Users" where email = $1';
             const values = [email];
             const data = await db.query(text, values);
-            
-            // cek apakah ada data user yang dicari
+
             if (data.rows.length == 0) {
-                return res.status(400).json({message: "Email or password invalid!"});
+                return res.status(400).json({ message: "Email or password invalid!" });
             }
             // validasi apakah password yang di input user dan di databse sama 
             const isValid = comparePassword(password, data.rows[0].password)
             if (!isValid) {
-                return res.status(400).json({message: "Email or password invalid!!"});
+                return res.status(400).json({ message: "Email or password invalid!!" });
             }
 
             // simpan data user ke variable user
@@ -85,17 +84,17 @@ class UserController {
 
             // set token ke header/cookie
             // token header
-            // res.header('Authorization', 'Bearer '+ token);\
+            res.header('Authorization', 'Bearer ' + token);
             // token di cookies
-            res.cookie('Authorization', 'Bearer '+ token);
+            // res.cookie('Authorization', 'Bearer '+ token);
             return res.status(200).json({
                 access_token: token
             });
 
 
         } catch (error) {
-            console.log(error);
-            return res.status(500).json("Internal Server error");
+            console.log(error.message);
+            return res.status(500).json({error: "Internal Server error"});
         }
     }
 }
